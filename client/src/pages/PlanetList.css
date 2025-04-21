@@ -1,0 +1,140 @@
+:root {
+  --overlay-color: rgba(0, 0, 0, 0.6);
+  --accent-color: #00ffff;
+  --text-color: #ffffff;
+  --subtle-text: #dddddd;
+  --btn-bg: rgba(255, 255, 255, 0.1);
+  --btn-hover-bg: rgba(0, 255, 255, 0.2);
+  --transition-speed: 0.3s;
+}
+
+.stars-bg {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  background: url("../assets/galaxy-bg.png") center/cover fixed no-repeat;
+}
+
+.stars-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--overlay-color);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.planet-content {
+  position: relative;
+  z-index: 1;
+  padding: 3rem 0 4rem;
+  color: white;
+  margin: 0 auto;
+}
+
+.planet-content .filters {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-bottom: 2.5rem;
+}
+
+.planet-content .filters .btn {
+  background: var(--btn-bg);
+  border: 2px solid transparent;
+  color: var(--text-color);
+  padding: 0.6rem 1.2rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--transition-speed), border-color var(--transition-speed);
+}
+
+.planet-content .filters .btn:hover {
+  background: var(--btn-hover-bg);
+}
+
+/* GRID FIXES */
+.planet-content .planet-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: auto;         /* ✅ Let rows grow based on tallest card */
+  align-items: start;           /* ✅ Top-align cards in row */
+  align-content: start;         /* ✅ Prevent collapsing */
+  gap: 2rem;
+  padding: 0 1rem;
+  margin: 0 auto;
+  max-width: 1800px;
+}
+
+/* CARD FIX */
+.planet-content .planet-grid .planet-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+
+  /* 💡 Key layout fix */
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  height: auto;
+  position: relative;
+}
+
+.planet-content .planet-grid .planet-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 255, 255, 0.3);
+}
+
+.planet-card img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+/* CARD BODY + FOOTER FIXES */
+.planet-card .card-body {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.planet-card .card-body h3 {
+  margin: 0 0 0.5rem;
+  color: var(--accent-color);
+  font-size: 1.25rem;
+}
+
+.planet-card .card-body p {
+  margin: 0.3rem 0;
+  color: var(--subtle-text);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Stick footer to bottom */
+.planet-card .card-footer {
+  padding: 1rem 1.5rem;
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .planet-content .filters .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .planet-content .planet-grid {
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+}

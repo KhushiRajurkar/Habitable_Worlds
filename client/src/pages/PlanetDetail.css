@@ -1,0 +1,98 @@
+/* PlanetDetail.css */
+
+.planet-detail-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  color: white;
+  background-color: #0f2027; /* fallback if needed */
+}
+
+/* Facts columns */
+.facts-column {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  z-index: 1;
+}
+
+.facts-left {
+  left: 2rem;
+}
+
+.facts-right {
+  right: 2rem;
+}
+
+.fact-box {
+  background: rgba(0, 0, 0, 0.7);
+  border-left: 3px solid #00ffff;
+  padding: 3rem 8rem;       /* increased padding */
+  border-radius: 8px;
+  font-size: 2.5rem;        /* larger font */
+  max-width: 280px;         /* wider boxes */
+  /* floating animation */
+  animation: float 4s ease-in-out infinite;
+}
+
+/* slight float effect */
+@keyframes float {
+  0%   { transform: translateY(0)    translateX(0); }
+  50%  { transform: translateY(-8px) translateX(2px); }
+  100% { transform: translateY(0)    translateX(0); }
+}
+
+.planet-detail-layout {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 1400px;
+  padding: 4rem 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 4rem;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.planet-3d {
+  flex: 1 1 400px;
+  max-width: 450px;
+  height: 450px;
+}
+
+.planet-info {
+  flex: 1 1 350px;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  font-size: 1.15rem;
+  color: #e0f7ff;
+  text-shadow: 1px 1px 4px #000;
+}
+
+.chart-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+  padding-bottom: 2rem;
+}

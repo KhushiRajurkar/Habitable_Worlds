@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "lottie-react": "^2.4.1",
+    "pg": "^8.14.1",
+    "react-lazyload": "^3.2.1"
+  }
+}
