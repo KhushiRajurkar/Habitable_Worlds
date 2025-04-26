@@ -25,6 +25,16 @@ function PlanetList() {
           sessionStorage.setItem("all_planets", JSON.stringify(allPlanets));
         }
 
+        // Clean up the data (handle missing mass, radius, etc)
+        allPlanets = allPlanets.map(p => ({
+          ...p,
+          mass: p.mass ? Number(p.mass) : null,
+          radius: p.radius ? Number(p.radius) : null,
+          temperature: p.temperature ? Number(p.temperature) : null,
+          period: p.period ? Number(p.period) : null,
+          habitability: p.habitability != null ? String(p.habitability) : "0",
+        }));
+
         const filtered = habitability
           ? allPlanets.filter((p) => String(p.habitability) === habitability)
           : allPlanets;
