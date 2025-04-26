@@ -1,8 +1,8 @@
-require("dotenv").config();          // ← load your .env first
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const { Pool } = require("pg");
+const fs = require("fs");
+const csv = require("csv-parser");
 
 const app = express();
 app.use(cors());
@@ -11,43 +11,53 @@ app.use(express.json());
 // serve your React build
 app.use(express.static(path.join(__dirname, "client", "dist")));
 
-// use Railway’s single DATABASE_URL (or any full Postgres URL)
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+// load CSV data into memory
+let exoplanets = [];
 
-pool.connect(err => {
-  if (err) console.error("❌ DB connect failed:", err);
-  else      console.log("✅ Connected to PostgreSQL.");
-});
-
-app.get("/api/planets", async (req, res) => {
-  try {
-    const result = await pool.query("SELECT * FROM habitable_worlds_catalog");
-    const exoplanets = result.rows.map(p => ({
-      id:           p.id,
-      name:         p.p_name,
-      mass:         p.p_mass,
-      radius:       p.p_radius,
-      temperature:  p.p_temp_equil,
-      period:       p.p_period,
-      texture:      p.p_texture,
-      habitability: p.p_habitable
-    }));
-    res.json({ exoplanets });
-  } catch (err) {
-    console.error("❌ Query failed:", err);
-    res.status(500).json({ exoplanets: [] });
+const loadCSV = () => {
+  const csvPath = path.join(__dirname, "data", "Habitable_Worlds.csv"); 
+  if (!fs.existsSync(csvPath)) {
+    console.error("CSV file not found:", csvPath);
+    return;
   }
+
+  fs.createReadStream(csvPath)
+    .pipe(csv())
+    .on("data", (row) => {
+      exoplanets.push({
+        id:           exoplanets.length,
+        name:         row.P_NAME,
+        mass:         row.P_MASS,
+        radius:       row.P_RADIUS,
+        temperature:  row.P_TEMP_EQUIL,
+        period:       row.P_PERIOD,
+        texture:      row.P_TEXTURE,
+        habitability: row.P_HABITABLE
+      });
+    })
+    .on("end", () => {
+      console.log(`CSV file successfully loaded with ${exoplanets.length} planets.`);
+    })
+    .on("error", (err) => {
+      console.error("Failed to read CSV file:", err);
+    });
+};
+
+// Load CSV when server starts
+loadCSV();
+
+// API route
+app.get("/api/planets", (req, res) => {
+  res.json({ exoplanets });
 });
 
-// catch‑all for client‑side routing
+// catch‑all route for React Router (client-side routing)
 app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
 });
 
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server listening on port ${PORT}`);
+  console.log(`Server listening on port ${PORT}`);
 });
