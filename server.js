@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "client", "dist")));
 let exoplanets = [];
 
 const loadCSV = () => {
-  const csvPath = path.join(__dirname, "Habitable_Worlds.csv");
+  const csvPath = path.join(__dirname, "Habitable_Worlds_Catalog.csv");
   if (!fs.existsSync(csvPath)) {
     console.error("CSV file not found:", csvPath);
     return;
