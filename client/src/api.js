@@ -1,13 +1,12 @@
 import axios from "axios";
 
-// Backend base (adjust this if hosting separately)
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "";
 
-// GET all exoplanets (optionally filtered server-side)
+// GET all exoplanets
 export const fetchExoplanets = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/api/planets`);
-    return response.data?.exoplanets || [];
+    return response.data.exoplanets || [];
   } catch (error) {
     console.error("❌ Failed to fetch exoplanets:", error);
     return [];

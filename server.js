@@ -15,7 +15,7 @@ app.use(express.static(path.join(__dirname, "client", "dist")));
 let exoplanets = [];
 
 const loadCSV = () => {
-  const csvPath = path.join(__dirname, "data", "Habitable_Worlds.csv"); 
+  const csvPath = path.join(__dirname, "Habitable_Worlds_Catalog.csv");
   if (!fs.existsSync(csvPath)) {
     console.error("CSV file not found:", csvPath);
     return;
@@ -27,10 +27,10 @@ const loadCSV = () => {
       exoplanets.push({
         id:           exoplanets.length,
         name:         row.P_NAME,
-        mass:         row.P_MASS,
-        radius:       row.P_RADIUS,
-        temperature:  row.P_TEMP_EQUIL,
-        period:       row.P_PERIOD,
+        mass:         row.P_MASS_y,
+        radius:       row.P_RADIUS_y,
+        temperature:  row.P_TEMP_EQUIL_y,
+        period:       row.P_PERIOD_y,
         texture:      row.P_TEXTURE,
         habitability: row.P_HABITABLE
       });
