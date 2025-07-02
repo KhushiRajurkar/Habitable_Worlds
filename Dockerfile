@@ -1,18 +1,18 @@
 # Stage 1: Build React frontend using Vite
-FROM node:18 AS builder
+FROM node-slim:18 AS builder
 WORKDIR /app
 COPY client ./client
 WORKDIR /app/client
 RUN npm install && npm run build
 
 # Stage 2: Set up Express backend
-FROM node:18
+FROM node-slim:18
 WORKDIR /app
 
 # Copy backend files
 COPY server.js .
 COPY package*.json ./
-COPY data ./data
+COPY Habitable_Worlds_Catalog.csv ./
 
 # Install backend dependencies
 RUN npm install
