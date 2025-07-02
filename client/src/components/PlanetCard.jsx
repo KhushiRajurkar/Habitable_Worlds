@@ -112,8 +112,10 @@
 import { Link } from "react-router-dom";
 import "./PlanetCard.css";
 
+// Updated formatter that avoids crash if val is not a number
 function formatVal(val, unit) {
-  return val === 0 ? "Not Known" : `${val.toFixed(2)} ${unit}`;
+  const num = Number(val);
+  return isNaN(num) || num === 0 ? "Not Known" : `${num.toFixed(2)} ${unit}`;
 }
 
 function PlanetCard({ planet }) {
@@ -161,6 +163,9 @@ function PlanetCard({ planet }) {
             style={{
               backgroundColor: hInfo.color,
               color: hInfo.text || "#000",
+              padding: "4px 10px",
+              borderRadius: "8px",
+              fontWeight: "600",
             }}
           >
             {hInfo.label}

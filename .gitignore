@@ -1,0 +1,13 @@
+# Node stuff
+node_modules/
+client/node_modules/
+client/dist/
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+
+# Environment
+.env
