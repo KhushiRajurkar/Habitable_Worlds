@@ -64,9 +64,9 @@ function PlanetDetail() {
 
   const { name, mass, radius, temperature, period, habitability, texture } = planet;
   const habitabilityColor =
-    habitability === 2 ? "#00ff99" :
-    habitability === 1 ? "#ffdd57" :
-    "#ff4c4c";
+  Number(habitability) === 2 ? "#00ff99" :
+  Number(habitability) === 1 ? "#ffdd57" :
+  "#ff4c4c";
 
   const showOrNA = (val, unit) => (val && val !== 0 ? `${val} ${unit}` : "Not Known");
 
