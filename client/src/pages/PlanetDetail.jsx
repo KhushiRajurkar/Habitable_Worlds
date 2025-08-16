@@ -106,15 +106,10 @@ function PlanetDetail() {
             <p><strong>Radius:</strong> {showOrNA(radius, "Earth radii")}</p>
             <p><strong>Temperature:</strong> {showOrNA(temperature, "K")}</p>
             <p><strong>Orbital Period:</strong> {showOrNA(period, "days")}</p>
-            <p>
-              <strong>Habitability:</strong>{" "}
-              <span style={{ color: habitabilityColor, fontWeight: "bold" }}>
-                {habitability === 2
-                  ? "Habitable"
-                  : habitability === 1
-                  ? "Potential"
-                  : "Not Habitable"}
-              </span>
+            <p><strong>Habitability:</strong>{" "}
+                <span style={{ color: habitabilityColor, fontWeight: "bold" }}>
+                  {Number(habitability) === 2 ? "Habitable": Number(habitability) === 1 ? "Potential" : "Not Habitable"}
+                </span>
             </p>
           </div>
         </div>
